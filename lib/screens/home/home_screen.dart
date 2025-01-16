@@ -1,9 +1,15 @@
 // lib/screens/home/home_screen.dart
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/widgets/shop/product_card.dart';
+
+import '../../providers/theme_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -43,6 +49,10 @@ class HomeScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.notifications),
                       onPressed: () {},
+                    ),
+                    Switch(
+                      value: themeProvider.isDarkMode,
+                      onChanged: (_) => themeProvider.toggleTheme(),
                     ),
                   ],
                 ),
@@ -206,63 +216,13 @@ class HomeScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     SizedBox(height: 16),
-                    Container(
-                      height: 200,
+                    SizedBox(
+                      height: 300,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: 5,
                         itemBuilder: (context, index) {
-                          return Container(
-                            width: 160,
-                            margin: EdgeInsets.only(right: 16),
-                            child: Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(12),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.medical_services,
-                                          size: 40,
-                                          color: Colors.grey[400],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Product Name',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                        ),
-                                        Text(
-                                          '₹199',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return ProductCard();
                         },
                       ),
                     ),

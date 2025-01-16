@@ -1,13 +1,15 @@
 // lib/widgets/shop/product_card.dart
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../modals/product.dart';
+import '../../providers/cart_provider.dart';
 
 class ProductCard extends StatelessWidget {
   final Product? product;
   final bool isHorizontal;
 
-  ProductCard({
+  const ProductCard({
     super.key,
     this.product,
     this.isHorizontal = false,
@@ -22,7 +24,8 @@ class ProductCard extends StatelessWidget {
           name: 'Paracetamol 500mg',
           description: 'Pain relief tablet',
           price: 199.0,
-          imageUrl: 'https://via.placeholder.com/200',
+          imageUrl:
+              'https://www.hlhealthcare.co.in/wp-content/uploads/2024/07/M-PLUS-scaled.jpg',
           isDonatable: true,
         );
 
@@ -156,27 +159,28 @@ class ProductCard extends StatelessWidget {
                             child: IconButton(
                               icon: Icon(Icons.add_shopping_cart,
                                   color: Colors.white),
-                              onPressed: () {},
-                              // onPressed: () {
-                              //   context.read<CartProvider>().addItem(
-                              //         displayProduct,
-                              //         productId: '',
-                              //       );
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //     SnackBar(
-                              //       content: Text('Added to cart'),
-                              //       duration: Duration(seconds: 2),
-                              //       action: SnackBarAction(
-                              //         label: 'UNDO',
-                              //         onPressed: () {
-                              //           context
-                              //               .read<CartProvider>()
-                              //               .removeItem(displayProduct.id);
-                              //         },
-                              //       ),
-                              //     ),
-                              //   );
-                              // },
+                              onPressed: () {
+                                context.read<CartProvider>().addItem(
+                                      displayProduct,
+                                      productId: product!.id,
+                                      title: product!.name,
+                                      price: product!.price,
+                                    );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Added to cart'),
+                                    duration: Duration(seconds: 2),
+                                    action: SnackBarAction(
+                                      label: 'UNDO',
+                                      onPressed: () {
+                                        context
+                                            .read<CartProvider>()
+                                            .removeItem(displayProduct.id);
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
                               constraints: BoxConstraints.tightFor(
                                 width: 32,
                                 height: 32,
@@ -193,43 +197,6 @@ class ProductCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// Example usage in ProductsScreen
-class ProductsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Medical Store')),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          // Responsive grid layout
-          int crossAxisCount;
-          if (constraints.maxWidth > 1200) {
-            crossAxisCount = 4; // Large screens
-          } else if (constraints.maxWidth > 800) {
-            crossAxisCount = 3; // Medium screens
-          } else if (constraints.maxWidth > 600) {
-            crossAxisCount = 2; // Small tablets
-          } else {
-            crossAxisCount = 2; // Phones
-          }
-
-          return GridView.builder(
-            padding: EdgeInsets.all(16),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              childAspectRatio: 0.75,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-            ),
-            itemBuilder: (ctx, i) => ProductCard(),
-            itemCount: 10, // Replace with actual product count
-          );
-        },
       ),
     );
   }

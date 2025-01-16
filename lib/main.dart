@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/providers/cart_provider.dart';
 import 'package:untitled/providers/product_provider.dart';
+import 'package:untitled/providers/theme_provider.dart';
 
 import 'config/routes.dart';
-import 'config/theme.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ProductProvider()),
       ChangeNotifierProvider(create: (_) => CartProvider()),
-      // ... other providers
+      ChangeNotifierProvider(create: (_) => ThemeProvider()),
     ],
     child: MyApp(),
   ));
@@ -20,10 +20,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pandev',
-      theme: AppTheme.lightTheme,
+      theme: themeProvider.theme,
       routes: AppRoutes.routes,
       initialRoute: '/',
     );
