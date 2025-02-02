@@ -6,7 +6,9 @@ This is a multi-functional medical app built using Flutter. The app combines e-c
 ---
 
 ## Screenshots
-![PHOTO-2025-01-16-11-33-38](https://g
+![PHOTO-2025-01-16-11-33-38](https://github.com/user-attachments/assets/dac92c95-9a26-4ec3-a183-76a49a555de3)
+
+
 ![PHOTO-2025-01-16-11-33-42](https://github.com/user-attachments/assets/1c0c99dd-a1d1-463c-94fd-287b02823021)
 ithub.com/user-attachments/assets/b26a373e-3f0c-463a-a95b-c2a2c204ec25)
 
@@ -118,12 +120,8 @@ ithub.com/user-attachments/assets/b26a373e-3f0c-463a-a95b-c2a2c204ec25)
 ## License
 This project is licensed under the [MIT License](LICENSE).
 
----
 
-## Contact
-For queries or suggestions, feel free to reach out:
-- **Email:** your-email@example.com
-- **GitHub:** [YourGitHubProfile](https://github.com/YourGitHubProfile)
+
 
 ---
 
